@@ -4,6 +4,7 @@
  * Hopefully, we heard about that as part of an event? or part of a value change?
  */
 
+// Takes an object and uses it to update something in Vue
 Vue.component("live-object", {
 	template: `<a-entity>
 	
