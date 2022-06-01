@@ -1,12 +1,48 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+  	<link rel="icon" href="css/img/favicon.ico">
+    <link rel="stylesheet" href="css/page.css">
+    <link rel="stylesheet" href="css/paripassu.css">
+
+    	<!-- External libs -->
+    <script  src="js/vendor/uuidv4.min.js"></script>
+    
+    <script  src="js/vendor/aframe.min.js"></script>
+    <!-- <script  src="js/vendor/aframe-clickdrag-jesstelford.js"></script> -->
+      <!-- <script src="https://unpkg.com/aframe-click-drag-component"></script> -->
+      <!--   <script src="https://jesstelford.github.io/aframe-click-drag-component/build.js"></script> -->
+  
+    <script  src="js/vendor/simplex-noise.js"></script>
+    <script  src="js/vendor/uuidv4.min.js"></script>
+    <script  src="js/vendor/vue.js"></script>
+    <script  src="js/vendor/mods-eng-basic.js"></script>
+    <script  src="js/vendor/tracery.js"></script>
+    <!-- Utilities -->
+    <script  src="js/utilities.js"></script>
+    <script  src="js/vector-nonextended.js" ></script>
+    <script  src="js/three-utils.js" ></script>
+    <script  src="js/liveobject.js" ></script>
+
+    
+    <script  src="js/test-body.js" ></script>
+
+
+	<!-- YOUR CODE GOES IN THESE TWO -->
+	<script  src="js/custom.js" ></script>
+	<script  src="js/v-customobjects.js" ></script>
+
+	<script  src="js/v-body.js" ></script>
+	<script  src="js/v-interaction.js" ></script>
+	<script  src="js/v-scene.js" ></script>
+
+	<script  src="js/room.js" ></script>
+	<script  src="js/app.js" ></script>
   </head>
   
   <!-- color can be hex, word, or hsl(0-360, %, %)-->
 
   <body>
+    <div id="app">
     <a-scene light="defaultLightsEnabled: false">
       <a-assets> <!-- load these first, we wil use later -->
         <img id="nightSkyTexture" src="https://cdn.glitch.global/bae45d64-8466-472c-b3f1-9c506967687e/angryimg.png?v=1651091966097" crossorigin="anonymous"/>
@@ -79,5 +115,6 @@
       
       <a-sky repeat="4 4" src="#starNightTexture"></a-sky>
     </a-scene>
+  </div>
   </body>
 </html>
