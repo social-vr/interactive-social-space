@@ -1,4 +1,4 @@
-// Vue component that creates a body for players.
+
 Vue.component("vr-body", {
 	template: `
 	<a-entity>
