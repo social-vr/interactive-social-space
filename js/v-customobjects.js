@@ -1,4 +1,4 @@
-const fakeBodyCount = 1
+const fakeBodyCount = 10
 const fakeBodySteps = 1000
 
 const trackedKeys = ["size", "color", "fireStrength", "rotation", "position", "paritype", "displayName", "label", "labelWidth"]

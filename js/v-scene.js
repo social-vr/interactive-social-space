@@ -167,6 +167,12 @@ Vue.component("sam-scene", {
       </a-entity>
       
       <a-sky repeat="4 4" src="#starNightTexture"></a-sky>
+
+	  <a-entity position="0 0 0">
+			<!--------- ALL THE OBJECTS YOU'VE MADE --------->
+			<live-object  v-for="obj in room.objects" :key="obj.uid" :obj="obj" />
+		</a-entity>
+	  
     </a-scene>
   `,
   props: ["room"],

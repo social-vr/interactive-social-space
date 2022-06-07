@@ -47,7 +47,7 @@ window.onload = (event) => {
 		template: `<div>
 		
 			<div id="scene">
-				<room-scene :room="room" v-if="!params.noaframe" />
+				<sam-scene :room="room" v-if="!params.noaframe" />
 			</div>
 
 			<div id="overlay" v-if="params.debug">
