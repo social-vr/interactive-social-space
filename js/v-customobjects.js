@@ -22,7 +22,7 @@ Vue.component("obj-head", {
 			:radius-bottom="headSize*.2"
 			:position="spike.position.toAFrame(0, .2, 0)"
 			:rotation="spike.rotation.toAFrame()"
-			:color="obj.color.toHex(.5*Math.sin(index))" 
+			:color="spike.color.toHex(.5*Math.sin(index))" 
 				
 			>
 		
@@ -31,15 +31,52 @@ Vue.component("obj-head", {
 		<!-- NOSE -->
 		<a-cone
 		
-			:height="headSize*.6"
-			:radius-bottom="headSize*.4"
+			:height="headSize*.5+nose.size"
+			:radius-bottom="headSize*.3+nose.size"
 			position="0 0 -.18"
 			
-			:color="obj.color.toHex(.3)" 
+			:color="nose.color.toHex(.3)" 
 			
 		>
 	
 		</a-cone>
+		<!-- HAT -->
+		<a-cylinder
+			:height="hat.size*0.7"
+			:radius="hat.size*0.2"
+			position="0 0.3 0"
+			:color="hat.color.toHex()" 
+		>
+		</a-cylinder>
+		<a-cylinder
+			:height="0.015"
+			:radius="hat.size*0.4"
+			position="0 0.2 0"
+			:color="hat.color.toHex()" 
+		>
+		</a-cylinder>
+		<!-- BODY -->
+		<a-cylinder
+			shadow
+			:height="body.size*0.7 +0.08"
+			:radius="body.size*0.1 +0.05"
+			position="0 -0.65 0"
+			:color="body.color.toHex()" 
+		>
+		</a-cylinder>
+		<!-- EYES -->
+		<a-sphere
+			:radius="eye.size*0.15"
+			position="-0.1 .1 -.18"
+			:color="eye.color.toHex(0.3)" 
+		>
+		</a-sphere>
+		<a-sphere
+			:radius="eye.size*0.15"
+			position="0.1 .1 -.18"
+			:color="eye.color.toHex(0.3)" 
+		>
+		</a-sphere>
 	</a-entity>
 	`,
 	computed: {
@@ -47,21 +84,66 @@ Vue.component("obj-head", {
 			return this.obj.color.toHex?this.obj.color.toHex():this.obj.color
 		},
 		headSize() {
-			return this.obj.size instanceof Vector ? this.obj.size.x : this.obj.size
+			return this.obj.size instanceof Vector ? this.obj.size.x : this.obj.size 
 		},
 	},
-
+	// mounted() {
+	// 	// Create a fire object
+	// 	// Attach this liveobject to the ROOM
+	// 	// and then the room deals with drawing it to AFRAME
+	// 	let fire = new LiveObject(this.room, {
+	// 		paritype: "fire",  // Tells it which type to use
+	// 		uid: "fire0",
+	// 		isTracked: true,
+			// onUpdate({t, dt, frameCount}) {
+			// 	// Change the fire's color
+			// 	let hue = (noise(t*.02)+1)*180
+			// 	Vue.set(this.color.v, 0, hue)
+			// }
+	// 	})
 	data() {
 		let spikeCount = Math.random()*10 + 10
 		let spikes = []
 		let h2 = Math.random() - .5
-			
+		let hat = new LiveObject(undefined, { 	
+			size: Math.random()*.5 + .3,
+			onUpdate({t, dt, frameCount}) {
+				// Change the fire's color
+				let rc = Math.floor(Math.random()*16777215).toString(16)
+				Vue.set(hat.color,rc)
+			},
+		})
+		let nose = new LiveObject(undefined, { 
+
+			size: Math.random()*.1,
+			// color: new Vector(noise(i)*30 + 140, 0, 40 + 20*noise(i*3))
+			onUpdate({t, dt, frameCount}) {
+				// Change the fire's color
+				let rc = Math.floor(Math.random()*16777215).toString(16)
+				Vue.set(nose.color,rc)
+			},
+		})
+		let eye = new LiveObject(undefined, { 
+
+			size: .2,
+			// color: new Vector(noise(i)*30 + 140, 0, 40 + 20*noise(i*3))
+			onUpdate({t, dt, frameCount}) {
+				// Change the fire's color
+				let rc = Math.floor(Math.random()*16777215).toString(16)
+				Vue.set(eye.color,rc)
+			},
+		})
 		for (var i = 0; i < spikeCount; i++) {
 			let h = .1
 			let spike = new LiveObject(undefined, { 
 
 				size: Math.random()*.4 + .2,
-				color: new Vector(noise(i)*30 + 140, 0, 40 + 20*noise(i*3))
+				// color: new Vector(noise(i)*30 + 140, 0, 40 + 20*noise(i*3))
+				onUpdate({t, dt, frameCount}) {
+					// Change the fire's color
+					let rc = Math.floor(Math.random()*16777215).toString(16)
+					Vue.set(spike.color,rc)
+				},
 			})
 			let r = .2
 			// Put them on the other side
@@ -72,14 +154,26 @@ Vue.component("obj-head", {
 			spike.rotateX(-Math.PI/2)
 			spikes.push(spike)
 		}
-
+		let body = new LiveObject(undefined, { 	
+			size: Math.random()*.8 + .4,
+			onUpdate({t, dt, frameCount}) {
+				// Change the fire's color
+				let rc = Math.floor(Math.random()*16777215).toString(16)
+				Vue.set(hat.color,rc)
+			},
+		})
 		return {
-			spikes: spikes
+			spikes: spikes,
+			hat: hat,
+			nose: nose,
+			body: body,
+			eye: eye
 		}
 	},
-
 	mounted() {
 		// console.log(this.headSize)
+	},
+	grounded(){
 	},
 	props: ["obj"]
 })
