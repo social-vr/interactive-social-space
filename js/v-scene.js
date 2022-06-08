@@ -124,26 +124,42 @@ Vue.component("sam-scene", {
     </a-assets>
     <a-entity light="type: ambient; color: hsl(0, 10%, 20%)"></a-entity>      
     
-    <a-entity id="player0" position="0 1.6 3">
-      <a-camera/>
-    </a-entity>
-    <a-entity id="player1" position="-3 1.6 0" rotation="0 -70 0">
-      <a-camera/>
-    </a-entity>
+
+    <!--------- CAMERA --------->
+
+		<a-camera id="camera" rotation-reader>
+			<a-cursor></a-cursor>
+
+			<!-------- Output text ----->
+			<a-entity>
+				<a-text 
+					v-if="room.userHead"
+					width=".8"
+					color="black"
+					:value="room.userHead.position.toFixed(2)" 
+					position="-.7 .7 -1">
+				</a-text>
+				
+				<a-text 
+					width="2"
+					color="black"
+					:value="room.titleText" 
+					position="-.7 .6 -1">
+				</a-text>
+				<a-text 
+					width="1"
+					color="black"
+					:value="room.detailText" 
+					position="-.7 .5 -1">
+				</a-text>
+			</a-entity>
+			
+		</a-camera>
+
     <a-entity id="surroundingNature" position ="0 0 0">
         <a-cylinder repeat="20 20" src="#sandTexture" height=".02" radius="4"/>
         <a-cylinder repeat="20 20" src="#oceanTexture" height=".01" radius="40"/>
         <a-cylinder  position="0 10 0" repeat="1 1" height="100" radius="40" src="#mountains" open-ended="true" side="double"/>
-      </a-entity>
-    
-      <a-entity id="fire"  position = "0 0 0">
-        <a-cone radius-bottom="1" radius-top="0" height="2" src="#fireTexture"/>
-          <a-animation attribute="height"
-           dur="1000"
-           direction="alternate"               
-           to="3"
-           repeat="indefinite"></a-animation>
-        <a-animation attribute="rotation" dur="4000" fill="forwards" to="0 360 0" repeat="indefinite"></a-animation>
       </a-entity>
       
       <a-entity light="type: point; color: hsl(15,60%,51%); intensity: .6" position="0 .4 0"/>
@@ -168,7 +184,11 @@ Vue.component("sam-scene", {
       
       <a-sky repeat="4 4" src="#starNightTexture"></a-sky>
 
+      <obj-world :room="room"/>
+
+
 	  <a-entity position="0 0 0">
+      <a-entity text="value:hello;font:/fonts/helvetica-sdf.fnt; fontImage:/fonts/helvetica-sdf.png;width:10;color:black" position="0 1 0"></a-entity>
 			<!--------- ALL THE OBJECTS YOU'VE MADE --------->
 			<live-object  v-for="obj in room.objects" :key="obj.uid" :obj="obj" />
 		</a-entity>

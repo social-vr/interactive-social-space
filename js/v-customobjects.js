@@ -181,6 +181,17 @@ Vue.component("obj-head", {
 
 Vue.component("obj-fire", {
 	template: `
+
+  <a-entity id="fire"  position = "0 0 0">
+    <a-cone radius-bottom="1" radius-top="0" height="2" src="#fireTexture"/>
+      <a-animation attribute="height"
+      dur="1000"
+      direction="alternate"               
+      to="3"
+      repeat="indefinite"></a-animation>
+    <a-animation attribute="rotation" dur="4000" fill="forwards" to="0 360 0" repeat="indefinite"></a-animation>
+  </a-entity>
+
 	<a-entity>
 		<obj-axes scale="5 5 5" v-if="false" />
 		<a-sphere 
