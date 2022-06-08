@@ -181,41 +181,17 @@ Vue.component("obj-head", {
 
 Vue.component("obj-fire", {
 	template: `
-
-  <a-entity id="fire"  position = "0 0 0">
-    <a-cone radius-bottom="1" radius-top="0" height="2" src="#fireTexture"/>
-      <a-animation attribute="height"
-      dur="1000"
-      direction="alternate"               
-      to="3"
-      repeat="indefinite"></a-animation>
-    <a-animation attribute="rotation" dur="4000" fill="forwards" to="0 360 0" repeat="indefinite"></a-animation>
-  </a-entity>
-
 	<a-entity>
-		<obj-axes scale="5 5 5" v-if="false" />
-		<a-sphere 
-			color="grey"
-			radius=2 
-			scale="1 .3 1" 
-			roughness=1
-			segments-height="5"
-			segments-width="10"
-			theta-start=0
-			theta-length=60
-			position="0 -.4 0"
-			>
-		</a-sphere>
 		<a-cone
 			position="0 .2 0"
 			@click="click"
 			:animation="heightAnimation"
-			:color="obj.color.toHex()"
+			src="#fireTexture"
 			height=.2
 			radius-bottom=".2"
-
+      color="red"
 			:scale="(obj.fireStrength*.2 + 1) + ' ' + .1*obj.fireStrength + ' ' + (obj.fireStrength*.2 + 1)"
-			:material="fireMaterial">
+			>
 
 		</a-cone>
 
@@ -230,6 +206,7 @@ Vue.component("obj-fire", {
 			decay="2">
 		</a-light>
 	</a-entity>
+
 
 	`,
 
@@ -254,7 +231,7 @@ Vue.component("obj-fire", {
 		click() {
 			this.obj.fireStrength += 1
 			this.obj.fireStrength = this.obj.fireStrength%10 + 1
-
+      console.log("click")
 			// Tell the server about this action
 			this.obj.post()
 		}
