@@ -253,116 +253,116 @@ Vue.component("obj-fire", {
 
 Vue.component("obj-world", {
 
-	template: `
-	<a-entity>
-		<!--------- SKYBOX --------->
-		<a-sky color="lightblue"></a-sky>
+	// template: `
+	// <a-entity>
+	// 	<!--------- SKYBOX --------->
+	// 	<a-sky color="lightblue"></a-sky>
 
-		<a-plane 
-			roughness="1"
-			shadow 
-			color="hsl(140,40%,40%)"
-			height="100" 
-			width="100" 
-			rotation="-90 0 0">
-		</a-plane>
+	// 	<a-plane 
+	// 		roughness="1"
+	// 		shadow 
+	// 		color="hsl(140,40%,40%)"
+	// 		height="100" 
+	// 		width="100" 
+	// 		rotation="-90 0 0">
+	// 	</a-plane>
 
-		<!---- lights ----> 
-		<a-entity light="type: ambient; intensity: 0.4;" color="white"></a-entity>
-		<a-light type="directional" 
-			position="0 0 0" 
-			rotation="-90 0 0" 
-			intensity="0.4"
-			castShadow target="#directionaltarget">
-			<a-entity id="directionaltarget" position="-10 0 -20"></a-entity>
-		</a-light>
+	// 	<!---- lights ----> 
+	// 	<a-entity light="type: ambient; intensity: 0.4;" color="white"></a-entity>
+	// 	<a-light type="directional" 
+	// 		position="0 0 0" 
+	// 		rotation="-90 0 0" 
+	// 		intensity="0.4"
+	// 		castShadow target="#directionaltarget">
+	// 		<a-entity id="directionaltarget" position="-10 0 -20"></a-entity>
+	// 	</a-light>
 
-		<a-cone 
-			v-for="(tree,index) in trees"
-			:key="'tree' + index"
-			shadow 
+	// 	<a-cone 
+	// 		v-for="(tree,index) in trees"
+	// 		:key="'tree' + index"
+	// 		shadow 
 
-			:color="tree.color.toHex()"
-			:base-radius="tree.size.z" 
-			:height="tree.size.y" 
+	// 		:color="tree.color.toHex()"
+	// 		:base-radius="tree.size.z" 
+	// 		:height="tree.size.y" 
 
-			segments-radial=10
-			segments-height=1
+	// 		segments-radial=10
+	// 		segments-height=1
 			
-			:rotation="tree.rotation.toAFrame()"
-			:position="tree.position.toAFrame()">
-		</a-cone>
+	// 		:rotation="tree.rotation.toAFrame()"
+	// 		:position="tree.position.toAFrame()">
+	// 	</a-cone>
 
 		
 
-		<a-box 
-			v-for="(rock,index) in rocks"
-			:key="'rock' + index"
-			shadow 
+	// 	<a-box 
+	// 		v-for="(rock,index) in rocks"
+	// 		:key="'rock' + index"
+	// 		shadow 
 
-			roughness="1"
+	// 		roughness="1"
 
-			:color="rock.color.toHex()"
-			:width="rock.size.x" 
-			:depth="rock.size.z" 
-			:height="rock.size.y" 
+	// 		:color="rock.color.toHex()"
+	// 		:width="rock.size.x" 
+	// 		:depth="rock.size.z" 
+	// 		:height="rock.size.y" 
 			
-			:rotation="rock.rotation.toAFrame()"
-			:position="rock.position.toAFrame()">
-		</a-box>
+	// 		:rotation="rock.rotation.toAFrame()"
+	// 		:position="rock.position.toAFrame()">
+	// 	</a-box>
 
-	</a-entity>
-		`,
+	// </a-entity>
+	// 	`,
 
-	data() {
-		// Where we setup the data that this *rendered scene needs*
+	// data() {
+	// 	// Where we setup the data that this *rendered scene needs*
 
-		// EXAMPLE: Generated landscape
-		// Make some random trees and rocks
-		// Create a lot of LiveObjects (just as a way 
-		//  to store size and color conveniently)
-		// Interpret them as whatever A-Frame geometry you want!
-		// Cones, spheres, entities with multiple ...things?
-		// If you only use "noise" and not "random", 
-		// everyone will have the same view. (Wordle-style!)
-		let trees = []
-		let count = 30
-		for (var i = 0; i < count; i++) {
-			let h = 6 + 4*noise(i) // Size from 1 to 3
-			let tree = new LiveObject(undefined, { 
-				size: new THREE.Vector3(.3, h, .3),
-				color: new Vector(noise(i*50)*30 + 160, 100, 40 + 10*noise(i*10))
-			})
-			let r = 20 + 10*noise(i*40)
-			let theta = 2*noise(i*10)
-			tree.position.setToCylindrical(r, theta, h/2)
-			tree.lookAt(0,1,0)
-			trees.push(tree)
-		}
+	// 	// EXAMPLE: Generated landscape
+	// 	// Make some random trees and rocks
+	// 	// Create a lot of LiveObjects (just as a way 
+	// 	//  to store size and color conveniently)
+	// 	// Interpret them as whatever A-Frame geometry you want!
+	// 	// Cones, spheres, entities with multiple ...things?
+	// 	// If you only use "noise" and not "random", 
+	// 	// everyone will have the same view. (Wordle-style!)
+	// 	let trees = []
+	// 	let count = 30
+	// 	for (var i = 0; i < count; i++) {
+	// 		let h = 6 + 4*noise(i) // Size from 1 to 3
+	// 		let tree = new LiveObject(undefined, { 
+	// 			size: new THREE.Vector3(.3, h, .3),
+	// 			color: new Vector(noise(i*50)*30 + 160, 100, 40 + 10*noise(i*10))
+	// 		})
+	// 		let r = 20 + 10*noise(i*40)
+	// 		let theta = 2*noise(i*10)
+	// 		tree.position.setToCylindrical(r, theta, h/2)
+	// 		tree.lookAt(0,1,0)
+	// 		trees.push(tree)
+	// 	}
 
-		let rocks = []
-		let rockCount = 20
-		for (var i = 0; i < rockCount; i++) {
-			let h = 1.2 + noise(i*100) // Size from 1 to 3
-			let rock = new LiveObject(undefined, { 
-				size: new THREE.Vector3(h, h, h),
-				color: new Vector(noise(i)*30 + 140, 0, 40 + 20*noise(i*3))
-			})
-			let r = 4 + 1*noise(i*1)
-			// Put them on the other side
-			let theta = 2*noise(i*10) + 3
-			rock.position.setToCylindrical(r, theta, h*.3)
-			// Look randomly
-			rock.lookAt(Math.random()*100,Math.random()*100,Math.random()*100)
-			rocks.push(rock)
-		}
+	// 	let rocks = []
+	// 	let rockCount = 20
+	// 	for (var i = 0; i < rockCount; i++) {
+	// 		let h = 1.2 + noise(i*100) // Size from 1 to 3
+	// 		let rock = new LiveObject(undefined, { 
+	// 			size: new THREE.Vector3(h, h, h),
+	// 			color: new Vector(noise(i)*30 + 140, 0, 40 + 20*noise(i*3))
+	// 		})
+	// 		let r = 4 + 1*noise(i*1)
+	// 		// Put them on the other side
+	// 		let theta = 2*noise(i*10) + 3
+	// 		rock.position.setToCylindrical(r, theta, h*.3)
+	// 		// Look randomly
+	// 		rock.lookAt(Math.random()*100,Math.random()*100,Math.random()*100)
+	// 		rocks.push(rock)
+	// 	}
 
 
-		return {
-			trees: trees,
-			rocks: rocks
-		}
-	},
+	// 	return {
+	// 		trees: trees,
+	// 		rocks: rocks
+	// 	}
+	// },
 
 	mounted() {
 		// Create a fire object
