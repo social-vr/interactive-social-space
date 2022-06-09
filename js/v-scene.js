@@ -159,6 +159,7 @@ Vue.component("sam-scene", {
     <a-entity id="surroundingNature" position ="0 0 0">
         <a-cylinder repeat="20 20" src="#sandTexture" height=".02" radius="4"/>
         <a-cylinder repeat="20 20" src="#oceanTexture" height=".01" radius="40"/>
+        <a-cylinder  position="0 10 0" repeat="1 1" height="100" radius="40" src="#mountains" open-ended="true" side="double"/>
       </a-entity>
       
       <a-entity light="type: point; color: hsl(15,60%,51%); intensity: .6" position="0 .4 0"/>
