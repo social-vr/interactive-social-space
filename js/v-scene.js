@@ -119,7 +119,7 @@ Vue.component("sam-scene", {
       <!---- https://www.istockphoto.com/photo/panoramic-beautiful-view-of-mount-ama-dablam-gm513247652-87509653?utm_source=unsplash&utm_medium=affiliate&utm_campaign=srp_photos_top&utm_content=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fmountain-range&utm_term=mountain%20range%3A%3Asearch-explore-top-affiliate-outside-feed-x-v2%3Ab-->
       <img id="sandTexture" src="https://cdn.glitch.global/bae45d64-8466-472c-b3f1-9c506967687e/SoilBeach0104_3_download600.jpg?v=1651105164691" crossorigin="anonymous"/>
       <!--https://www.textures.com/download/SoilBeach0104/48686-->
-      <img id="starNightTexture" src="https://cdn.glitch.global/5647ad26-b46b-45f0-be0a-fc5e9bee1509/sky3.png?v=1651682501254" crossorigin="anonymous"/>
+      <img id="starNightTexture" src="https://cdn.glitch.global/bae45d64-8466-472c-b3f1-9c506967687e/DelphinusStars.jpg?v=1651156814423" crossorigin="anonymous"/>
       <!---https://astronomy.com/news/observing/2020/10/the-sky-this-week-from-october-9-to-16--->
     </a-assets>
     <a-entity light="type: ambient; color: hsl(0, 10%, 20%)"></a-entity>      
@@ -182,7 +182,7 @@ Vue.component("sam-scene", {
         </a-box>
       </a-entity>
       
-      <a-sky src="#starNightTexture" rotation="180 0 0"></a-sky>
+      
 
       <obj-world :room="room"/>
 

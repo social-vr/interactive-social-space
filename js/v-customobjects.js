@@ -1,7 +1,7 @@
 const fakeBodyCount = 0
 const fakeBodySteps = 1000
 
-const trackedKeys = ["size", "color", "fireStrength", "rotation", "position", "paritype", "displayName", "label", "labelWidth"]
+const trackedKeys = ["size", "color", "fireStrength", "rotation", "position", "paritype", "displayName", "label", "labelWidth", "rot"]
 
 // Decorate the head of our guestsgit pull
 Vue.component("obj-head", {
@@ -250,52 +250,20 @@ Vue.component("obj-fire", {
 Vue.component("obj-constellation", {
 	template: `
 	<a-entity>
-		<a-cone
-			position="0 .2 0"
-			src="#fireTexture"
-			height=.2
-			radius-bottom=".2"
-      color="red"
-			>
-
-		</a-cone>
+    <a-sky repeat="4 4"src="#starNightTexture" :rotation="rot.toString()"></a-sky>
 	</a-entity>
-
-
 	`,
 
-	// Values computed on the fly
-	computed: {
-		fireMaterial() {
-			return `emissive:${this.obj.color.toHex(.2)}`
-		},
-		
-		animationSpeed() {
-			return 500
-		},
-		intensityAnimation() {
-			return `property: intensity; from:.3; to:.6; dir:alternate;dur: ${this.animationSpeed}; easing:easeInOutQuad;loop:true`
-		},
-		heightAnimation() {
-			return `property: height; from:${this.obj.fireStrength};to:${this.obj.fireStrength*2}; dir:alternate;dur: 500; easing:easeInOutQuad;loop:true`
-		}
-	},
-
-	methods: {
-		click() {
-			this.obj.fireStrength += 1
-			this.obj.fireStrength = this.obj.fireStrength%10 + 1
-      console.log("click")
-			// Tell the server about this action
-			this.obj.post()
-		}
-	},
-
-	// this function runs once when this object is created
-	mounted() {
-
-	},
-
+  data() {
+    return {
+      rot: 0
+    }
+  },
+  mounted() {
+    setInterval(() => {
+      this.rot = (this.rot + 0.01) % 360;
+    }, 100)
+  },
 	props: ["obj"]
 
 
@@ -307,6 +275,7 @@ Vue.component("obj-world", {
 
 	template: `
 	<a-entity>
+  
   </a-entity>`,
 
 
@@ -379,14 +348,15 @@ Vue.component("obj-world", {
 		fire.position.set(0, 0, 0)
 		fire.fireStrength = 1
 
-    // let c1 = new LiveObject(this.room, {
-    //   paritype: "constellation",
-    //   uid: "c0",
-    //   isTracked: true,
-    //   onUpdate() {}
-    // })
-    // c1.position.set(0, 0, -5)
-    // c1.fireStrength=2
+    let c1 = new LiveObject(this.room, {
+      paritype: "constellation",
+      uid: "c0",
+      isTracked: true,
+      onUpdate() {
+        console.log(this)
+        Vue.set(this.rotation, 0, (this.rotation + 1))
+      }
+    })
 	
 	},
 
