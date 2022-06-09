@@ -1,9 +1,9 @@
-const fakeBodyCount = 10
+const fakeBodyCount = 0
 const fakeBodySteps = 1000
 
 const trackedKeys = ["size", "color", "fireStrength", "rotation", "position", "paritype", "displayName", "label", "labelWidth"]
 
-// Decorate the head of our guests
+// Decorate the head of our guestsgit pull
 Vue.component("obj-head", {
 	template: `<a-entity>
 
@@ -393,14 +393,14 @@ Vue.component("obj-world", {
 		fire.position.set(0, 0, 0)
 		fire.fireStrength = 1
 
-    let c1 = new LiveObject(this.room, {
-      paritype: "constellation",
-      uid: "c0",
-      isTracked: true,
-      onUpdate() {}
-    })
-    c1.position.set(0, 0, -5)
-    c1.fireStrength=2
+    // let c1 = new LiveObject(this.room, {
+    //   paritype: "constellation",
+    //   uid: "c0",
+    //   isTracked: true,
+    //   onUpdate() {}
+    // })
+    // c1.position.set(0, 0, -5)
+    // c1.fireStrength=2
 	
 	},
 
