@@ -162,7 +162,6 @@ class LiveObject extends THREE.Object3D {
  	handleUpdate(data) {
  		// if (this.paritype || data.paritype)
  		// 	console.warn(`${this} Handle data`, data)
-
 		for (const [key, value] of Object.entries(data)) {
 			// console.log(key, value)
  			let current = this[key]

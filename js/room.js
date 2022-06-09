@@ -40,7 +40,6 @@ class Room {
 		this.fakeData()
 	}
 
-	
 
 	// Start a new room with this ID
 	setID(roomID) {
@@ -48,8 +47,8 @@ class Room {
 		this.roomID = roomID
 		this.idNumber = roomID.hashCode()
 
-		this.titleText = "Room: " + this.roomID
-		this.detailText = "some text here"
+		// this.titleText = "Room: " + this.roomID
+		// this.detailText = "some text here"
 
 		noise.seed(this.idNumber)
 		// Both uid->Obj maps

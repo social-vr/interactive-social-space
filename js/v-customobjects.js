@@ -242,7 +242,73 @@ Vue.component("obj-fire", {
 
 	},
 
+	props: ["obj"]
 
+
+})
+
+Vue.component("obj-constellation", {
+	template: `
+	<a-entity>
+		<a-cone
+			position="0 .2 0"
+			@click="click"
+			:animation="heightAnimation"
+			src="#fireTexture"
+			height=.2
+			radius-bottom=".2"
+      color="red"
+			:scale="(obj.fireStrength*.2 + 1) + ' ' + .1*obj.fireStrength + ' ' + (obj.fireStrength*.2 + 1)"
+			>
+
+		</a-cone>
+
+		<a-light
+			:animation="intensityAnimation"
+
+			position="0 1 0"
+			intensity="2"
+			:color="obj.color.toHex()"
+			type="point"
+			:distance="obj.fireStrength*4 + 10"
+			decay="2">
+		</a-light>
+	</a-entity>
+
+
+	`,
+
+	// Values computed on the fly
+	computed: {
+		fireMaterial() {
+			return `emissive:${this.obj.color.toHex(.2)}`
+		},
+		
+		animationSpeed() {
+			return 500
+		},
+		intensityAnimation() {
+			return `property: intensity; from:.3; to:.6; dir:alternate;dur: ${this.animationSpeed}; easing:easeInOutQuad;loop:true`
+		},
+		heightAnimation() {
+			return `property: height; from:${this.obj.fireStrength};to:${this.obj.fireStrength*2}; dir:alternate;dur: 500; easing:easeInOutQuad;loop:true`
+		}
+	},
+
+	methods: {
+		click() {
+			this.obj.fireStrength += 1
+			this.obj.fireStrength = this.obj.fireStrength%10 + 1
+      console.log("click")
+			// Tell the server about this action
+			this.obj.post()
+		}
+	},
+
+	// this function runs once when this object is created
+	mounted() {
+
+	},
 
 	props: ["obj"]
 
@@ -253,66 +319,10 @@ Vue.component("obj-fire", {
 
 Vue.component("obj-world", {
 
-	// template: `
-	// <a-entity>
-	// 	<!--------- SKYBOX --------->
-	// 	<a-sky color="lightblue"></a-sky>
+	template: `
+	<a-entity>
+  </a-entity>`,
 
-	// 	<a-plane 
-	// 		roughness="1"
-	// 		shadow 
-	// 		color="hsl(140,40%,40%)"
-	// 		height="100" 
-	// 		width="100" 
-	// 		rotation="-90 0 0">
-	// 	</a-plane>
-
-	// 	<!---- lights ----> 
-	// 	<a-entity light="type: ambient; intensity: 0.4;" color="white"></a-entity>
-	// 	<a-light type="directional" 
-	// 		position="0 0 0" 
-	// 		rotation="-90 0 0" 
-	// 		intensity="0.4"
-	// 		castShadow target="#directionaltarget">
-	// 		<a-entity id="directionaltarget" position="-10 0 -20"></a-entity>
-	// 	</a-light>
-
-	// 	<a-cone 
-	// 		v-for="(tree,index) in trees"
-	// 		:key="'tree' + index"
-	// 		shadow 
-
-	// 		:color="tree.color.toHex()"
-	// 		:base-radius="tree.size.z" 
-	// 		:height="tree.size.y" 
-
-	// 		segments-radial=10
-	// 		segments-height=1
-			
-	// 		:rotation="tree.rotation.toAFrame()"
-	// 		:position="tree.position.toAFrame()">
-	// 	</a-cone>
-
-		
-
-	// 	<a-box 
-	// 		v-for="(rock,index) in rocks"
-	// 		:key="'rock' + index"
-	// 		shadow 
-
-	// 		roughness="1"
-
-	// 		:color="rock.color.toHex()"
-	// 		:width="rock.size.x" 
-	// 		:depth="rock.size.z" 
-	// 		:height="rock.size.y" 
-			
-	// 		:rotation="rock.rotation.toAFrame()"
-	// 		:position="rock.position.toAFrame()">
-	// 	</a-box>
-
-	// </a-entity>
-	// 	`,
 
 	// data() {
 	// 	// Where we setup the data that this *rendered scene needs*
@@ -383,47 +393,15 @@ Vue.component("obj-world", {
 		fire.position.set(0, 0, 0)
 		fire.fireStrength = 1
 
-		// let fire2 = new LiveObject(this.room, {
-		// 	paritype: "fire",  // Tells it which type to use
-		// 	uid: "fire2",
-		// 	onUpdate({t, dt, frameCount}) {
-		// 		let hue = (noise(t*.02)+1)*180
-		// 		Vue.set(this.color.v, 0, hue)
-				
-		// 		// console.log(this.color[0] )
-		// 	}
-		// })
-
-		// fire2.position.set(3, 0, -4)
-		// fire2.fireStrength = 7
-
-		
-		let grammar = new tracery.createGrammar(  {
-			songStyle : ", played as #song.a#, on #musicModifier# #instrument#",
-			instrument : ["ukulele", "vocals", "guitar", "clarinet", "piano", "harmonica", "sitar", "tabla", "harp", "dulcimer", "violin", "accordion", "concertina", "fiddle", "tamborine", "bagpipe", "harpsichord", "euphonium"],
-			musicModifier : ["heavy", "soft", "acoustic", "psychedelic", "light", "orchestral", "operatic", "distorted", "echoing", "melodic", "atonal", "arhythmic", "rhythmic", "electronic"],
-			musicGenre : ["metal", "electofunk", "jazz", "salsa", "klezmer", "zydeco", "blues", "mariachi", "flamenco", "pop", "rap", "soul", "gospel", "buegrass", "swing", "folk"],
-			musicPlays : ["echoes out", "reverberates", "rises", "plays"],
-			musicAdv : ["too quietly to hear", "into dissonance", "into a minor chord", "changing tempo", "to a major chord", "staccatto", "into harmony", "without warning", "briskly", "under the melody", "gently", "becoming #musicGenre#"],
-			song : ["melody", "dirge", "ballad", "poem", "beat poetry", "slam poetry", "spoken word performance", "hymn", "song", "tone poem", "symphony"],
-			musicAdj : ["yielding", "firm", "joyful", "catchy", "folksy", "harsh", "strong", "soaring", "rising", "falling", "fading", "frantic", "calm", "childlike", "rough", "sensual", "erotic", "frightened", "sorrowful", "gruff", "smooth"],
-        
-		}, {})
-		grammar.addModifiers(baseEngModifiers)
-
-		const campfireSongs = ["Lonely Goatherd", "On top of spaghetti", "Princess Pat", "BINGO", "Old Mac Donald", "Going on a Bear Hunt", "The Green Grass Grew All Around", "Home on the Range", "John Jacob Jingleheimer Schmitt", "The Wheels on the Bus", "If I had a Hammer"]
-		this.room.detailText = "Campfire time!"
-
-		this.room.time.onSecondChange((second) => {
-			// Change the song every minute (60 seconds)
-			let rate = 10 // How many seconds between changes
-			if (second%rate === 0) {
-				let tick = second/rate
-				let index = second % campfireSongs.length
-				let song = campfireSongs[index]
-				this.room.detailText =  song + grammar.flatten("#songStyle#")
-			}
-		})
+    let c1 = new LiveObject(this.room, {
+      paritype: "constellation",
+      uid: "c0",
+      isTracked: true,
+      onUpdate() {}
+    })
+    c1.position.set(0, 0, -5)
+    c1.fireStrength=2
+	
 	},
 
 	props: ["room"]
